@@ -1,0 +1,15 @@
+{
+  "name": "banny-stuff",
+  "version": "1.0.0",
+  "description": "Created ban json files for minecraft servers using nodejs",
+  "main": "banned-test.js",
+  "dependencies": {
+    "request": "^2.67.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Eric Gonzalo",
+  "license": "ISC"
+}
