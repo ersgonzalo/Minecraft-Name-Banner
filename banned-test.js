@@ -6,7 +6,7 @@ let stringArr;
 let bannedArray = [];
 var bannedObjectMaker = (uuid, name) => {
     return {
-        uuid, //8-4-4-4-12
+        uuid, //8-4-4-4-12 format
         name,
         "created": "2015-01-01 00:01:01 +0100",
         "source": "(Unknown)",
@@ -15,8 +15,7 @@ var bannedObjectMaker = (uuid, name) => {
     }
 }
 const minecraftRequestURL = 'https://api.mojang.com/users/profiles/minecraft/';
-// const umUsernames = './banned folder/333 Unmigrated Usernames.txt';
-const umUsernames = './newLists/1033 Premium Minecraft Usernames.txt';
+const umUsernames = './newLists/idiots';
 
 fs.readFile(umUsernames, 'utf8', (err, data) => {
     stringArr = data.split(/\r?\n/); //carriage return and newline possibly
@@ -25,22 +24,21 @@ fs.readFile(umUsernames, 'utf8', (err, data) => {
     });
 
     for (let smallName of stringArr) {
-        // // smallName = smallName.split(':')[0]; //for if unmigrated username with password
+        smallName = smallName.split(':')[0]; //for if unmigrated username with password
         request.get(minecraftRequestURL + smallName, (error, response, body) => {
             try {
                 let smallID = JSON.parse(body);
-                // if (smallID.hasOwnProperty('id')) {
-                //     smallID = smallID.id
-                //     smallID = smallID.substring(0, 8) + '-' + smallID.substring(8, 12) + '-' + smallID.substring(12, 16) + '-' + smallID.substring(16, 20) + '-' + smallID.substring(20, 32); //format the UUID
-                //     bannedArray.push(bannedObjectMaker(smallID, smallName));
-                //     let maxbans = JSON.stringify(bannedArray, null, 2);
-                //     fs.writeFile('./processed bans/banned-players.json', maxbans, () => {
-                //         console.log('Finished writing', smallName);
-                //     });
-                // }
-                console.log(smallID);
+                if (smallID.hasOwnProperty('id')) {
+                    smallID = smallID.id
+                    smallID = smallID.substring(0, 8) + '-' + smallID.substring(8, 12) + '-' + smallID.substring(12, 16) + '-' + smallID.substring(16, 20) + '-' + smallID.substring(20, 32); //format the UUID
+                    bannedArray.push(bannedObjectMaker(smallID, smallName));
+                    let maxbans = JSON.stringify(bannedArray, null, 2);
+                    fs.writeFile('./processed bans/processed-banned-players.json', maxbans, () => {
+                        console.log('Finished writing', smallName);
+                    });
+                }
             } catch (error) {
-                console.log(error);
+                console.log('ERROR:', error);
             }
         });
     }
