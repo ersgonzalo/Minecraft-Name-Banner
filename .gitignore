@@ -1,6 +1,7 @@
 node_modules
 *.txt
-*.json
+banned-ips.json
+banned-players.json
 *.yml
 *.csv
 *.db
