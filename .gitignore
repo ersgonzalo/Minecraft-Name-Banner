@@ -1,6 +1,9 @@
 node_modules
 banned folder
 ban processed
+oldLists
+newLists
+processed
 *.txt
 banned-ips.json
 banned-players.json
